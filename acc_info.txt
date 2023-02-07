@@ -5,3 +5,9 @@ Googlep@ssw0rd
 AWS information:
 productivepeopleapp@gmail.com
 AWSP@ssw0rd
+
+AWS RDS:
+database-1.czixa5q3qakj.us-east-1.rds.amazonaws.com
+root
+Super-Secret-Password
+
