@@ -1,10 +1,10 @@
-package Repository;
+package productiveApp.Repository;
 
-import Model.Friend;
+import productiveApp.Model.Friend;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@Repository
+@RepositoryRestResource
 public interface FriendSpringDataRepository extends JpaRepository<Friend, Integer> {
     Friend findById(int friendId);
 }
