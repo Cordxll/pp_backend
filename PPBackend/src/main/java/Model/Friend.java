@@ -8,7 +8,6 @@ public class Friend {
     @Id
     @GeneratedValue
     private int friendId;
-
     @ManyToOne
     private int userId;
 

@@ -1,21 +1,31 @@
 package Model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
+@Entity
 public class Goal {
 
+    @Id
+    @GeneratedValue
     private int goalId;
     private String title;
     private int progress;
     private Date timeline;
     private boolean isComplete;
+    @ManyToOne
+    private User user;
 
-    public Goal(int goalId, String title, int progress, Date timeline, boolean isComplete) {
+    public Goal(int goalId, String title, int progress, Date timeline, boolean isComplete, User user) {
         this.goalId = goalId;
         this.title = title;
         this.progress = progress;
         this.timeline = timeline;
         this.isComplete = isComplete;
+        this.user = user;
     }
 
     public int getGoalId() {
@@ -56,5 +66,13 @@ public class Goal {
 
     public void setComplete(boolean complete) {
         isComplete = complete;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,15 +1,25 @@
 package Model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Task {
 
+    @Id
+    @GeneratedValue
     private int taskId;
     private String title;
     private String description;
     private int time;
     private boolean isComplete;
     private boolean isPublic;
+    @ManyToOne
+    private User user;
 
-    public Task(int taskId, String title, String description, int time, boolean isComplete, boolean isPublic) {
+    public Task(int taskId, String title, String description, int time, boolean isComplete, boolean isPublic, User user) {
         this.taskId = taskId;
         this.title = title;
         this.description = description;
@@ -64,5 +74,13 @@ public class Task {
 
     public void setPublic(boolean aPublic) {
         isPublic = aPublic;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
