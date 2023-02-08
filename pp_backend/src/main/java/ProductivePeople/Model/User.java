@@ -1,6 +1,7 @@
-package productiveApp.Model;
+package ProductivePeople.Model;
 
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,18 +9,20 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Integer id;
     private String username;
     private String password;
     private String email;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany
+    @JoinColumn(name = "user_id")
     private List<Friend> friends = new ArrayList<>();
-//    @OneToMany(mappedBy = "user")
-//    private List<Task> tasks = new ArrayList<>();
-//    @OneToMany(mappedBy = "user")
-//    private List<Goal> goals = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Goal> goals = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -64,28 +67,28 @@ public class User {
     public void removeFriends(Friend friend) {
         friends.remove(friend);
     }
-//
-//    public List<Task> getTasks() {
-//        return tasks;
-//    }
-//
-//    public void addTasks(Task task) {
-//        tasks.add(task);
-//    }
-//
-//    public void removeTasks(Task task){
-//        tasks.remove(task);
-//    }
-//
-//    public List<Goal> getGoals() {
-//        return goals;
-//    }
-//
-//    public void addGoals(Goal goal) {
-//        goals.add (goal);
-//    }
-//
-//    public void removeGoals (Goal goal){
-//        goals.remove(goal);
-//    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void addTasks(Task task) {
+        tasks.add(task);
+    }
+
+    public void removeTasks(Task task){
+        tasks.remove(task);
+    }
+
+    public List<Goal> getGoals() {
+        return goals;
+    }
+
+    public void addGoals(Goal goal) {
+        goals.add (goal);
+    }
+
+    public void removeGoals (Goal goal){
+        goals.remove(goal);
+    }
 };

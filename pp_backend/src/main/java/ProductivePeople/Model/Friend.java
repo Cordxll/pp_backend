@@ -1,4 +1,4 @@
-package productiveApp.Model;
+package ProductivePeople.Model;
 
 import jakarta.persistence.*;
 
@@ -6,15 +6,12 @@ import jakarta.persistence.*;
 public class Friend {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "friend_id")
     private Integer id;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
-
-    public Friend(Integer id, User user) {
-        this.id = id;
-        this.user = user;
-    }
 
     public Integer getId() {
         return id;
