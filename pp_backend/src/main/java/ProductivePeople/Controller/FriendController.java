@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/friends")
@@ -28,6 +29,21 @@ public class FriendController {
         return new ResponseEntity<>(friend, HttpStatus.OK);
     }
 
+    @PostMapping("/add/{id}")
+    public ResponseEntity<Friend> addFriend(@PathVariable int id) {
+        Optional<Friend> friend = repository.findById(id);
+        if(friend.get() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        repository.save(friend.get());
+        return new ResponseEntity<>(friend.get(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteFriend(@PathVariable int id) {
+        repository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 }
