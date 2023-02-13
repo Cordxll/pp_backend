@@ -29,6 +29,7 @@ public class FriendController {
         return new ResponseEntity<>(friend, HttpStatus.OK);
     }
 
+    //todo may need to add UserSpringDataJPA repository to associate the friend with their correct username
     @PostMapping("/add/{id}")
     public ResponseEntity<Friend> addFriend(@PathVariable int id) {
         Optional<Friend> friend = repository.findById(id);

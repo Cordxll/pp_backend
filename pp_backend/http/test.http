@@ -1,0 +1,17 @@
+@url = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJieiIsImlhdCI6MTY3NjIxODExMiwiZXhwIjoxNjc2MjE5NTUyfQ.zM2n9j2Lqt0tyq0f6HkrSG2jUnk35Xc3NKIQ9BlUXhk
+
+###
+POST {{url}}/user/register
+Content-Type: application/json
+
+{
+    "username": "bz",
+    "password": "asdf",
+    "email": "asdf@asdf.com"
+}
+
+###
+
+GET {{url}}/demo/auth/hello
+Authorization: Bearer {{token}}

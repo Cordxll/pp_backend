@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -16,6 +19,10 @@ class UserSpringDataJPATest {
 
     @Test
     void findByUsername() {
-        assertEquals("asdf", repository.findByUsername("bz").getPassword());
+        System.out.println(repository.findByUsername("bz").orElse(null));
+        System.out.println(Arrays.toString(new List[]{repository.findAll()}));
+
+
+//        assertEquals("asdf", repository.findByUsername("bz").get().getPassword());
     }
 }

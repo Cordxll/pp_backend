@@ -13,6 +13,8 @@ public class Friend {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String username;
+
     public Integer getId() {
         return id;
     }

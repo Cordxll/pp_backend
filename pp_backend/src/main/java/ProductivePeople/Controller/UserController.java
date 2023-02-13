@@ -2,25 +2,28 @@ package ProductivePeople.Controller;
 
 import ProductivePeople.Model.User;
 import ProductivePeople.Repository.UserSpringDataJPA;
+import ProductivePeople.Security.AuthenticationRequest;
+import ProductivePeople.Security.AuthenticationResponse;
+import ProductivePeople.Security.AuthenticationService;
+import ProductivePeople.Security.RegisterRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    private UserSpringDataJPA repository;
+    private final UserSpringDataJPA repository;
 
-    private PasswordEncoder encoder;
+    //handles the register and authenticate methods (grants tokens)
+    private final AuthenticationService service;
 
-    public UserController(UserSpringDataJPA repository) {
-        this.repository = repository;
-    }
 
     @GetMapping
     public List<User> findAll() {
@@ -29,21 +32,11 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<User> findByUsername(@PathVariable String username) {
-        User user = repository.findByUsername(username);
+        User user = repository.findByUsername(username).get();
         if(user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody Map<String, String> credentials) {
-        User user = new User();
-        user.setUsername(credentials.get("username"));
-        user.setPassword(credentials.get(encoder.encode(credentials.get("password"))));
-        user.setEmail(credentials.get("email"));
-        repository.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
@@ -61,5 +54,26 @@ public class UserController {
         repository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(service.register(request));
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok(service.authenticate(request));
+    }
+
+
+//    @PostMapping("/create")
+//    public ResponseEntity<User> createUser(@RequestBody Map<String, String> credentials) {
+//        User user = new User();
+//        user.setUsername(credentials.get("username"));
+//        user.setPassword(credentials.get(encoder.encode(credentials.get("password"))));
+//        user.setEmail(credentials.get("email"));
+//        repository.save(user);
+//        return new ResponseEntity<>(user, HttpStatus.CREATED);
+//    }
 
 }

@@ -1,6 +1,6 @@
-insert into user(id, username, password, email)
+insert into user(username, password, email, role)
 values
-(1, 'bz', 'asdf', 'asdf');
+('bz', 'asdf', 'asdf', "USER");
 
 insert into friend(id, user_id)
 values
