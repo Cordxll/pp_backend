@@ -1,7 +1,5 @@
 @url = http://localhost:8080
-@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJieiIsImlhdCI6MTY3NjIxODExMiwiZXhwIjoxNjc2MjE5NTUyfQ.zM2n9j2Lqt0tyq0f6HkrSG2jUnk35Xc3NKIQ9BlUXhk
-
-###
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJieiIsImlhdCI6MTY3NjQ3NTkzNywiZXhwIjoxNjc2NDc3Mzc3fQ.l3qcCXWYjo-T2Mxcbeibvuu21dp4olVrgGbTwPCMvPM
 POST {{url}}/user/register
 Content-Type: application/json
 
