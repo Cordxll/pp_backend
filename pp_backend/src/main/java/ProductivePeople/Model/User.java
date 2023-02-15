@@ -28,7 +28,6 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String email;
-    private String color;
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -133,11 +132,4 @@ public class User implements UserDetails {
         goals.remove(goal);
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 };
