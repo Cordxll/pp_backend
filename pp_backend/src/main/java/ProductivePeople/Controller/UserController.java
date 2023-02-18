@@ -6,10 +6,11 @@ import ProductivePeople.Security.AuthenticationRequest;
 import ProductivePeople.Security.AuthenticationResponse;
 import ProductivePeople.Security.AuthenticationService;
 import ProductivePeople.Security.RegisterRequest;
+import ProductivePeople.Service.Result;
+import ProductivePeople.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +23,8 @@ public class UserController {
     private final UserSpringDataJPA repository;
 
     //handles the register and authenticate methods (grants tokens)
-    private final AuthenticationService service;
-
+    private final AuthenticationService authService;
+    private final UserService userService;
 
     @GetMapping
     public List<User> findAll() {
@@ -32,7 +33,7 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<User> findByUsername(@PathVariable String username) {
-        User user = repository.findByUsername(username).get();
+        User user = repository.findByUsername(username).orElse(null);
         if(user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -56,24 +57,21 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(service.register(request));
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        Result result = userService.create(request);
+        if(!result.success) {
+            return new ResponseEntity<>(result.getMessages(), HttpStatus.CONFLICT);
+        }
+        return ResponseEntity.ok(authService.register(request));
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(service.authenticate(request));
+    @PostMapping("/login/authenticate")
+    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request) {
+        Result result = userService.login(request);
+        if(!result.success) {
+            return new ResponseEntity<>(result.getMessages(), HttpStatus.CONFLICT);
+        }
+        return ResponseEntity.ok(authService.authenticate(request));
     }
-
-
-//    @PostMapping("/create")
-//    public ResponseEntity<User> createUser(@RequestBody Map<String, String> credentials) {
-//        User user = new User();
-//        user.setUsername(credentials.get("username"));
-//        user.setPassword(credentials.get(encoder.encode(credentials.get("password"))));
-//        user.setEmail(credentials.get("email"));
-//        repository.save(user);
-//        return new ResponseEntity<>(user, HttpStatus.CREATED);
-//    }
 
 }

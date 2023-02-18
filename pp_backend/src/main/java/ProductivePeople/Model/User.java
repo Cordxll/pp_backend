@@ -1,6 +1,7 @@
 package ProductivePeople.Model;
 
 import ProductivePeople.Security.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,10 +34,13 @@ public class User implements UserDetails {
 
     @OneToMany
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private List<Friend> friends = new ArrayList<>();
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Task> tasks = new ArrayList<>();
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Goal> goals = new ArrayList<>();
 
     public Integer getId() {
