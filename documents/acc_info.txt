@@ -11,3 +11,5 @@ database-1.czixa5q3qakj.us-east-1.rds.amazonaws.com
 root
 Super-Secret-Password
 
+ak: AKIAXWP6UBWYEJTRIFEZ
+sak: chUYD0Whv4rw1SEGCcMhxIzcVqgEpaYbhc1/Y+nu
