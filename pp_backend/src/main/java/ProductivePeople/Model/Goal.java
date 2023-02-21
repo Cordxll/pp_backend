@@ -16,7 +16,9 @@ public class Goal {
     private String title;
     private int progress;
     private LocalDate timeline;
-    private boolean isComplete;
+    private boolean completed;
+    private String description;
+    private String color;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -56,12 +58,12 @@ public class Goal {
         this.timeline = timeline;
     }
 
-    public boolean isComplete() {
-        return isComplete;
+    public boolean getCompleted() {
+        return completed;
     }
 
-    public void setComplete(boolean complete) {
-        isComplete = complete;
+    public void setCompleted(boolean complete) {
+        completed = complete;
     }
 
     public User getUser() {
@@ -70,5 +72,21 @@ public class Goal {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
