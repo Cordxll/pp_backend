@@ -80,4 +80,8 @@ public class Task {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Goal getGoal() {
+        return goal;
+    }
 }
