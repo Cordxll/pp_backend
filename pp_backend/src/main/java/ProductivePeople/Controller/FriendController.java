@@ -13,7 +13,11 @@ import java.util.Optional;
 @RequestMapping("/friends")
 public class FriendController {
 
-    private FriendSpringDataJPA repository;
+    private final FriendSpringDataJPA repository;
+
+    public FriendController(FriendSpringDataJPA repository) {
+        this.repository = repository;
+    }
 
     @GetMapping
     public List<Friend> findAll() {

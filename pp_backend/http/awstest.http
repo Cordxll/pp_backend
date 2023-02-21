@@ -1,11 +1,12 @@
-@url = http://44.202.78.12:8080
+# @url = http://44.202.78.12:8080
+@url = http://localhost:8080
 @token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJieiIsImlhdCI6MTY3NjQ4Mjc0NCwiZXhwIjoxNjc2NDg0MTg0fQ.q0Fg-TNzuORmcd-HT82LXz_yqUKNFXJOnFJ3gxCXLU0
 ###
 POST {{url}}/user/register
 Content-Type: application/json
 
 {
-    "username": "bz",
+    "username": "Test2",
     "password": "asdf1",
     "email": "asdf@asdf.com"
 }
@@ -34,5 +35,9 @@ Content-Type: application/json
 
 {
     "username": "Test2",
-    "password": "asdf"
+    "password": "asdf1"
 }
+
+###
+
+GET {{url}}/goals

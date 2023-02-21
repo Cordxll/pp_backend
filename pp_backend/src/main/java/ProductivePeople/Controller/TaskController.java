@@ -13,7 +13,11 @@ import java.util.Optional;
 @RequestMapping("/task")
 public class TaskController {
 
-    private TaskSpringDataJPA repository;
+    private final TaskSpringDataJPA repository;
+
+    public TaskController(TaskSpringDataJPA repository) {
+        this.repository = repository;
+    }
 
     @GetMapping
     public  List<Task> findAll() {

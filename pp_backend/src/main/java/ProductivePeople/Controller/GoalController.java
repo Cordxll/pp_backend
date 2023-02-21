@@ -16,8 +16,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/goals")
 public class GoalController {
 
-    private GoalSpringDataJPA goalRepository;
-    private TaskSpringDataJPA taskRepository;
+    private final GoalSpringDataJPA goalRepository;
+    private final TaskSpringDataJPA taskRepository;
+
+    public GoalController(GoalSpringDataJPA goalRepository, TaskSpringDataJPA taskRepository) {
+        this.goalRepository = goalRepository;
+        this.taskRepository = taskRepository;
+    }
 
     @GetMapping
     public List<Goal> findAll() {
