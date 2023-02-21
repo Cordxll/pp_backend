@@ -18,7 +18,7 @@ public class UserService {
 
     public Result login(AuthenticationRequest request) {
         Result result = new Result();
-        if(repository.findByUsername(request.getUsername()).isEmpty() || !repository.findByUsername(request.getUsername()).get().getPassword().equals(request.getPassword())) {
+        if(repository.findByUsername(request.getUsername()).isEmpty()) {
             result.addErrorMessage("No user found or incorrect password");
             result.success = false;
         }
@@ -53,7 +53,7 @@ public class UserService {
             result.addErrorMessage("Not a valid email address");
         }
 
-        int[] nums = new int[9];
+        int[] nums = {1,2,3,4,5,6,7,8,9,0};
         boolean containsNum = false;
         for (int i = 0; i < nums.length; i++) {
             if(password.contains(String.valueOf(nums[i]))) {

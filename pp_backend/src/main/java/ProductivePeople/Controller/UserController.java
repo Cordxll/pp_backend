@@ -56,9 +56,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register/authenticate")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         Result result = userService.create(request);
+        if(result.getMessages().size() == 0) {
+            result.success = true;
+        }
         if(!result.success) {
             return new ResponseEntity<>(result.getMessages(), HttpStatus.CONFLICT);
         }
@@ -68,6 +71,9 @@ public class UserController {
     @PostMapping("/login/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request) {
         Result result = userService.login(request);
+        if(result.getMessages().size() == 0) {
+            result.success = true;
+        }
         if(!result.success) {
             return new ResponseEntity<>(result.getMessages(), HttpStatus.CONFLICT);
         }
