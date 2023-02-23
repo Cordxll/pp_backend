@@ -42,3 +42,19 @@ Content-Type: application/json
 
 GET {{url}}/goals
 
+###
+
+PUT {{url}}/goals/update/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "Lose Weight",
+    "description": "lift weights",
+    "color": "red",
+    "progress": 20,
+    "timeline": "2020-02-07",
+    "completed": 0,
+    "user_id": 1
+}
+
