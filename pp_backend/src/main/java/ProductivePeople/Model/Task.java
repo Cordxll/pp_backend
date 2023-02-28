@@ -14,8 +14,10 @@ public class Task {
     private Integer id;
     private String title;
     private String description;
-    private LocalDateTime time;
-    private boolean isComplete;
+    private String day;
+    private String time;
+    private String duration;
+    private boolean completed;
     private boolean isPublic;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -49,20 +51,27 @@ public class Task {
         this.description = description;
     }
 
-    public LocalDateTime getTime() {
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public boolean isComplete() {
-        return isComplete;
+    public boolean getCompleted() {
+        return completed;
     }
 
-    public void setComplete(boolean complete) {
-        isComplete = complete;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     public boolean isPublic() {
@@ -84,4 +93,16 @@ public class Task {
     public Goal getGoal() {
         return goal;
     }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+//    public boolean isCompleted() {
+//        return completed;
+//    }
 }

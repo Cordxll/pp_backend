@@ -33,7 +33,7 @@ class GoalSpringDataJPATest {
         goal.setTitle("finish project");
         goal.setProgress(20);
         goal.setCompleted(false);
-        goal.setTimeline(LocalDate.now());
+        goal.setTimeline("2022-01-01");
 
         repository.save(goal);
 

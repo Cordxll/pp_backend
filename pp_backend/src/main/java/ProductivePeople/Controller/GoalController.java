@@ -63,7 +63,7 @@ public class GoalController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteGoalById(@PathVariable int id) {
         goalRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);

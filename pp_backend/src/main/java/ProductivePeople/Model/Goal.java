@@ -15,7 +15,7 @@ public class Goal {
     private Integer id;
     private String title;
     private int progress;
-    private LocalDate timeline;
+    private String timeline;
     private boolean completed;
     private String description;
     private String color;
@@ -50,11 +50,11 @@ public class Goal {
         this.progress = progress;
     }
 
-    public LocalDate getTimeline() {
+    public String getTimeline() {
         return timeline;
     }
 
-    public void setTimeline(LocalDate timeline) {
+    public void setTimeline(String timeline) {
         this.timeline = timeline;
     }
 
