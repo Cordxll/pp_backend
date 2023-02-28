@@ -45,11 +45,22 @@ public class UserService {
     public Result validate(String username, String password, String email) {
         Result result = new Result();
 
+        if(username == null || username.isBlank()) {
+            result.addErrorMessage("Please enter a username");
+        }
+        if(password == null || password.isBlank()) {
+            result.addErrorMessage("Please enter a password");
+        }
+        if(email == null || email.isBlank()) {
+            result.addErrorMessage("Please enter an email");
+        }
         if(repository.findAll().stream().anyMatch(u -> u.getUsername().equalsIgnoreCase(username))) {
             result.addErrorMessage("This username already exists");
-        } else if(password.length() < 5) {
+        }
+        if(password.length() < 5) {
             result.addErrorMessage("Password should be at least 5 characters");
-        } else if(!email.endsWith(".com") && !email.contains("@")) {
+        }
+        if(!email.endsWith(".com") || !email.contains("@")) {
             result.addErrorMessage("Not a valid email address");
         }
 
