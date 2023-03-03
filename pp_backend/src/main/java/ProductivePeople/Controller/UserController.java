@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -40,11 +41,12 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody User user) {
-        if(id != user.getId()) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+    @PatchMapping("/update")
+    public ResponseEntity<?> updateUser(@RequestBody Map<String, String> userDetails) {
+        User user = repository.findById(Integer.parseInt(userDetails.get("userId"))).orElse(null);
+
+        user.setUsername(userDetails.get("username"));
+        user.setEmail(userDetails.get("email"));
 
         repository.save(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
