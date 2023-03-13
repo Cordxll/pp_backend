@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers( "/demo/hello", "/user/*", "/user/login/authenticate", "/user/register/authenticate", "/goals", "/goals/update/*", "/goals/update", "/goals/create", "/goals/delete/*", "/task", "/task/create", "/task/update/*", "/task/delete/*").permitAll()
+                .requestMatchers( "/demo/hello", "/user", "/user/*", "/user/update/*", "/user/login/authenticate", "/user/register/authenticate", "/goals", "/goals/update/*", "/goals/update", "/goals/create", "/goals/delete/*", "/task", "/task/create", "/task/update/*", "/task/delete/*", "/task/user/*", "/goals/user/*").permitAll()
                 .requestMatchers("/demo/auth/hello").hasAnyAuthority("USER")
                 .anyRequest()
                 .authenticated()

@@ -2,6 +2,7 @@ package ProductivePeople.Model;
 
 import ProductivePeople.Security.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +12,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -26,10 +26,12 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer id;
+    private String fullName;
     private String username;
     private String password;
     private String email;
     private String color;
+    private String pictureUrl;
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -43,6 +45,19 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Goal> goals = new ArrayList<>();
+
+
+    @Override
+    public List<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> listRole = new ArrayList<GrantedAuthority>();
+        if(role != null){
+        listRole.add(new SimpleGrantedAuthority(role.name()));
+        return listRole;}
+        else{
+        return Collections.emptyList();}
+//        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
 
     public Integer getId() {
         return id;
@@ -76,14 +91,19 @@ public class User implements UserDetails {
         return true;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
+
 
     public String getPassword() {
         return password;
@@ -101,18 +121,26 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public List<Friend> getFriends() {
-        return friends;
+    public String getPictureUrl() {
+        return pictureUrl;
     }
 
-    public void addFriends(Friend friend) {
-        friends.add(friend);
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 
-    public void removeFriends(Friend friend) {
-        friends.remove(friend);
-    }
-
+    //    public List<Friend> getFriends() {
+//        return friends;
+//    }
+//
+//    public void addFriends(Friend friend) {
+//        friends.add(friend);
+//    }
+//
+//    public void removeFriends(Friend friend) {
+//        friends.remove(friend);
+//    }
+//
     public List<Task> getTasks() {
         return tasks;
     }
@@ -137,4 +165,15 @@ public class User implements UserDetails {
         goals.remove(goal);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+        return Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getColor(), user.getColor()) && getRole() == user.getRole() && Objects.equals(getFriends(), user.getFriends()) && Objects.equals(getTasks(), user.getTasks()) && Objects.equals(getGoals(), user.getGoals());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getUsername(), getPassword(), getEmail(), getColor(), getRole(), getFriends(), getTasks(), getGoals());
+    }
 };

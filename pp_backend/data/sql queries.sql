@@ -2,9 +2,9 @@ use productive_people;
 
 select * from user;
 
-insert into user(username, password, email, role, color)
+insert into user(full_name,username, password, email, role, color, picture_url)
 values
-('bz', 'asdf', 'asdfasdf', 'USER', 'blue');
+('Yuliia Loew', 'yuliiaLoew', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'yuliia@loew.com', 'USER', 'blue', '');
 
  insert into goal(title, progress, timeline, completed, user_id, description, color)
  values

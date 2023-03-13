@@ -32,11 +32,19 @@ public class TaskController {
         }
         return new ResponseEntity<>(task.get(), HttpStatus.OK);
     }
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Task>> findByUserId(@PathVariable int id) {
+        List<Task> tasks = repository.findByUserId(id);
+//        if(task == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<?> addTask(@RequestBody Task task) {
         repository.save(task);
-        return new ResponseEntity<>(task, HttpStatus.CREATED);
+        return new ResponseEntity<>( HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")

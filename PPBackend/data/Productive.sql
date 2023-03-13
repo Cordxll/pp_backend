@@ -6,10 +6,12 @@ use productive_people;
 
 create table `user` (
 user_id int primary key auto_increment,
+full_name varchar(400) not null,
 username varchar(200) not null,
 password varchar(300) not null,
 email varchar(150) not null,
 color varchar(20),
+picture_url varchar(65535),
 `role` varchar(25)
 );
 

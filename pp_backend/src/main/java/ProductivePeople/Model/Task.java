@@ -1,6 +1,7 @@
 package ProductivePeople.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -92,6 +93,9 @@ public class Task {
 
     public Goal getGoal() {
         return goal;
+    }
+    public void setGoal(Goal goal) {
+        this.goal = goal;
     }
 
     public String getDuration() {

@@ -22,6 +22,7 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
                 .username(request.getUsername())
+                .fullName(request.getFullName())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())
                 .role(Role.USER)
@@ -29,6 +30,27 @@ public class AuthenticationService {
 
         repository.save(user);
         var jwtToken = converter.generateToken(user);
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
+
+    public AuthenticationResponse update(UpdateRequest request) {
+        var user = repository.findById(request.getId()).orElseThrow();
+        var newUser = User.builder()
+                .id(user.getId())
+                .username(request.getUsername())
+                .fullName(request.getFullName())
+                .email(request.getEmail())
+                .password(user.getPassword())
+                .pictureUrl(request.getPictureUrl())
+                .role(Role.USER)
+                .build();
+
+        repository.save(newUser);
+
+        var jwtToken = converter.generateToken(newUser);
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)

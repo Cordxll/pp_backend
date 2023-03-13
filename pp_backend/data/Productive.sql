@@ -10,6 +10,7 @@ username varchar(200) not null,
 password varchar(300) not null,
 email varchar(150) not null,
 color varchar(20),
+picture_url varchar(400) not null,
 `role` varchar(25)
 );
 

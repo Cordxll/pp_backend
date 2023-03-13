@@ -1,6 +1,9 @@
 package ProductivePeople.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,8 +26,9 @@ public class Goal {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "goal")
+   @OneToMany(mappedBy = "goal")
     private List<Task> tasks = new ArrayList<>();
+
 
     public Integer getId() {
         return id;
@@ -89,4 +93,5 @@ public class Goal {
     public void setColor(String color) {
         this.color = color;
     }
+
 }

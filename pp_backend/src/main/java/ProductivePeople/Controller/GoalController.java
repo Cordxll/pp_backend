@@ -38,15 +38,24 @@ public class GoalController {
         return new ResponseEntity<>(goal.get(), HttpStatus.OK);
     }
 
-    @GetMapping("/task/{id}")
-    public ResponseEntity<List<Task>> getTasksById(@PathVariable int id) {
-        Optional<Goal> goal = goalRepository.findById(id);
-        List<Task> tasks = taskRepository.findAll().stream().filter(t -> t.getGoal().getId() == id).collect(Collectors.toList());
-        if(goal.get() == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Goal>> findByUserId(@PathVariable int id) {
+         List<Goal> goals = goalRepository.findByUserId(id);
+//        if(goal.size() == 0) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+        return new ResponseEntity<>(goals, HttpStatus.OK);
     }
+
+//    @GetMapping("/task/{id}")
+//    public ResponseEntity<List<Task>> getTasksById(@PathVariable int id) {
+//        Optional<Goal> goal = goalRepository.findById(id);
+//        List<Task> tasks = taskRepository.findAll().stream().filter(t -> t.getGoal().getId() == id).collect(Collectors.toList());
+//        if(goal.get() == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(tasks, HttpStatus.OK);
+//    }
 
     @PostMapping("/create")
     public ResponseEntity<Goal> addGoal(@RequestBody Goal goal) {

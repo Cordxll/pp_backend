@@ -1,5 +1,7 @@
 @url = http://localhost:8080
 @token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJieiIsImlhdCI6MTY3NjQ4Mjc0NCwiZXhwIjoxNjc2NDg0MTg0fQ.q0Fg-TNzuORmcd-HT82LXz_yqUKNFXJOnFJ3gxCXLU0
+
+
 ###
 POST {{url}}/user/register
 Content-Type: application/json
@@ -23,6 +25,7 @@ GET {{url}}/user/bz
 
 GET {{url}}/user
 
+
 ###
 
 GET {{url}}/demo/hello
@@ -35,4 +38,63 @@ Content-Type: application/json
 {
     "username": "Test2",
     "password": "asdf"
+}
+
+###
+
+DELETE {{url}}/user/delete/7
+Content-Type: application/json
+
+{
+    "id": 7,
+    "username": "yuliia"
+  
+}
+
+###
+GET {{url}}/task/user/7
+
+###
+DELETE {{url}}/goals/delete/2
+Content-Type: application/json
+
+{
+    "id": 2
+}
+
+###
+PUT {{url}}/goals/update/19
+Content-Type: application/json
+
+{
+    "id": 19,
+    "title": "lose weight",
+    "completed": false,
+    "description": "description",
+    "color": "#b4737c",
+    "user":  {"id": 7}
+}
+
+###
+GET {{url}}/goals/user/1
+
+###
+POST {{url}}/goals/create
+Content-Type: application/json
+
+{
+    "title": "goal2",
+    "description": "some goal again",
+    "user": {
+    "id": 1,
+    "username": "yuliia",
+    "password": "$2a$10$0FslDFX/lm1poOrO7PbYOev3hU9XgM85dOxrFinKVVDIVIQRhqzIW",
+    "email": "yuliia@loew.com",
+    "color": null,
+    "role": "USER",
+    "enabled": true,
+    "accountNonExpired": true,
+    "accountNonLocked": true,
+    "credentialsNonExpired": true
+  }
 }

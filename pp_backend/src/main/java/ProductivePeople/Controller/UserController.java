@@ -2,10 +2,7 @@ package ProductivePeople.Controller;
 
 import ProductivePeople.Model.User;
 import ProductivePeople.Repository.UserSpringDataJPA;
-import ProductivePeople.Security.AuthenticationRequest;
-import ProductivePeople.Security.AuthenticationResponse;
-import ProductivePeople.Security.AuthenticationService;
-import ProductivePeople.Security.RegisterRequest;
+import ProductivePeople.Security.*;
 import ProductivePeople.Service.Result;
 import ProductivePeople.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -41,15 +38,20 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PatchMapping("/update")
-    public ResponseEntity<?> updateUser(@RequestBody Map<String, String> userDetails) {
-        User user = repository.findById(Integer.parseInt(userDetails.get("userId"))).orElse(null);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable int id, @RequestBody UpdateRequest request) {
 
-        user.setUsername(userDetails.get("username"));
-        user.setEmail(userDetails.get("email"));
+        Result result = userService.update(request);
+        System.out.println(result.getMessages());
+        if(result.getMessages().size() == 0) {
+            result.success = true;
+        }
+        if(!result.success) {
+            return new ResponseEntity<>(result.getMessages(), HttpStatus.CONFLICT);
+        }
 
-        repository.save(user);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        return ResponseEntity.ok(authService.update(request));
     }
 
     @DeleteMapping("delete/{id}")
